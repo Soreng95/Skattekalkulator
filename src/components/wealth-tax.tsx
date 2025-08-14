@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Path } from "react-hook-form";
 import {
   Form,
   FormField,
@@ -30,10 +30,10 @@ export default function WealthTaxForm() {
     resultatDrift: number;
   } | null>(null);
 
-  const BUNNFRADRAG = 1700000; // kan gjøres dynamisk
-  const SKATTERABATT = 0.8; // 20% rabatt
-  const FORMUESKATT_SATS = 0.01; // 1%
-  const UTTAK_SATS = 0.3; // 30%
+  const BUNNFRADRAG = 1_700_000;
+  const SKATTERABATT = 0.8;
+  const FORMUESKATT_SATS = 0.01;
+  const UTTAK_SATS = 0.3;
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -52,7 +52,6 @@ export default function WealthTaxForm() {
     const etterBunnfradrag = Math.max(etterSkatterabatt - BUNNFRADRAG, 0);
     const formueskatt = etterBunnfradrag * FORMUESKATT_SATS;
     const skattPaaUttak = formueskatt / (1 - UTTAK_SATS) - formueskatt;
-
     const resultatDrift = inntekter - utgifter;
 
     setResult({
@@ -69,19 +68,21 @@ export default function WealthTaxForm() {
     <div className="space-y-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {[
-            { name: "aksjerProsent", label: "Dine aksjer i prosent (%)" },
-            {
-              name: "formueNyttaar",
-              label: "Samlet verdier over nyttår (NOK)",
-            },
-            { name: "utgifter", label: "Utgifter (NOK)" },
-            { name: "inntekter", label: "Inntekter (NOK)" },
-          ].map(({ name, label }) => (
+          {(
+            [
+              { name: "aksjerProsent", label: "Dine aksjer i prosent (%)" },
+              {
+                name: "formueNyttaar",
+                label: "Samlet verdier over nyttår (NOK)",
+              },
+              { name: "utgifter", label: "Utgifter (NOK)" },
+              { name: "inntekter", label: "Inntekter (NOK)" },
+            ] as { name: Path<FormValues>; label: string }[]
+          ).map(({ name, label }) => (
             <FormField
               key={name}
               control={form.control}
-              name={name as any}
+              name={name}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{label}</FormLabel>

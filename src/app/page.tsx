@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
-import ExitTax from "@/components/ui/exit-tax";
-import WealthTax from "@/components/ui/wealth-tax";
+import ExitTax from "@/components/exit-tax";
+import WealthTax from "@/components/wealth-tax";
 
 export default function Home() {
   return (

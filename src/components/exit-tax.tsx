@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, FieldValues, Path } from "react-hook-form";
 import {
   Form,
   FormField,
@@ -52,31 +52,14 @@ export default function ExitTax() {
       return;
     }
 
-    // Beregn hele selskapets papirverdi
     const papirverdiSelskap = investering / (solgtProsent / 100);
-
-    // Din andel av selskapet (basert på aksjerProsent)
     const dinAndelFull = (papirverdiSelskap * aksjerProsent) / 100;
-
-    // Exit-skatt privat på hele din andel
     const exitSkatt = dinAndelFull * EXIT_SKATT_SATS;
-
-    // Bruttolønn som må utbetales for at du skal sitte igjen med exit-skatt etter inntektsskatt
     const bruttoLonn = exitSkatt / (1 - TOPPSKATT_SATS);
-
-    // Inntektsskatt-delen
     const inntektsskatt = bruttoLonn * TOPPSKATT_SATS;
-
-    // Arbeidsgiveravgift
     const aga = bruttoLonn * AGA_SATS;
-
-    // Total ekstra kostnad for å betale ut penger til skatten
     const totalUttakSkatt = inntektsskatt + aga;
-
-    // Totalkostnad for selskapet (selve exit-skatten + kostnadene ved uttak)
     const totalSelskapskostnad = exitSkatt + totalUttakSkatt;
-
-    // Investering - totalkostnad
     const etterSkattInvestering = investering - totalSelskapskostnad;
 
     setResult({
@@ -96,18 +79,20 @@ export default function ExitTax() {
     <div className="space-y-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {[
-            { name: "aksjerProsent", label: "Dine aksjer i prosent (%)" },
-            {
-              name: "investering",
-              label: "Investering for solgte aksjer (NOK)",
-            },
-            { name: "solgtProsent", label: "Solgt aksjer i prosent (%)" },
-          ].map(({ name, label }) => (
+          {(
+            [
+              { name: "aksjerProsent", label: "Dine aksjer i prosent (%)" },
+              {
+                name: "investering",
+                label: "Investering for solgte aksjer (NOK)",
+              },
+              { name: "solgtProsent", label: "Solgt aksjer i prosent (%)" },
+            ] as { name: Path<FormValues>; label: string }[]
+          ).map(({ name, label }) => (
             <FormField
               key={name}
               control={form.control}
-              name={name as any}
+              name={name}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{label}</FormLabel>
