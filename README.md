@@ -1,4 +1,4 @@
 ## Kalkulasjoner
 
-- [Exit-skatt kalkulasjon](./src/components/ui/exit-tax.tsx)
-- [Formuesskatt kalkulasjon](./src/components/ui/wealth-tax.tsx)
+- [Exit-skatt kalkulasjon](./src/components/exit-tax.tsx)
+- [Formuesskatt kalkulasjon](./src/components/wealth-tax.tsx)
