@@ -155,7 +155,7 @@ export default function ExitTax() {
             </p>
             <p>
               <strong>
-                Total skatt for å betale ut penger for å betale skatten:
+                Total skatt for å betale ut penger for å betale exit-skatten:
               </strong>{" "}
               {result.totalUttakSkatt.toLocaleString("no-NO")} NOK
             </p>

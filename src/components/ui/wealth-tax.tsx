@@ -124,7 +124,7 @@ export default function WealthTaxForm() {
           </p>
           <p>
             <strong>
-              Skatt selskapet må betale for å utbetale penger til skatt:
+              Skatt selskapet må betale for å utbetale penger til formuesskatt:
             </strong>{" "}
             {result.skattPaaUttak.toLocaleString("no-NO")} NOK
           </p>
