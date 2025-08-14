@@ -24,7 +24,7 @@ export default function Home() {
           oppfordrer alle til å lese og bidra med oppdateringer i kalkulasjonene
           og koden på{" "}
           <a
-            href="https://github.com/ditt-brukernavn/ditt-repo"
+            href="https://github.com/Soreng95/Skattekalkulator"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline"
